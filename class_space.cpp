@@ -14,10 +14,31 @@ namespace space{
     t_coord space::getyCoord(){
         return yCoord;
     }
-    void space::setChip(t_chip c){
-        userChip = c;
+    bool space::setChip(t_chip c){
+        if(isUsed()){
+            userChip = c;
+            return true;
+        }else{
+            return false;
+        }
+    }
+    bool space::setChip(t_chip c, int id){
+        if(isUsed()){
+            userChip = c;
+            userId = id;
+            return true;
+        }else{
+            return false;
+        }
     }
     t_chip space::getChip(){
         return userChip;
+    }
+    bool space::isUsed(){
+        if(userChip != 0 || userChip != '#'){
+            return true;
+        }else{
+            return false;
+        }
     }
 };

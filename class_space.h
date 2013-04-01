@@ -16,12 +16,15 @@ namespace space{
             t_coord xCoord;
             t_coord yCoord;
             t_chip userChip;
+            int userId;
         public:
             space(t_coord, t_coord);
             t_coord getxCoord();
             t_coord getyCoord();
-            void setChip(t_chip);
+            bool setChip(t_chip);
+            bool setChip(t_chip, int);
             t_chip getChip();
+            bool isUsed();
     };
 }
 
