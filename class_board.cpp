@@ -41,6 +41,31 @@ namespace board{
             std::cout << std::endl;
         }
     }
+    void board::printBoardWithHelptext(){
+        bool x_text_printed = false;
+        bool y_text_printed = false;
+
+        for(int x = 0; x < getXSize(); x++){
+            x_text_printed = false;
+
+            for( int y = 0; y < getYSize(); y++){
+                if(!y_text_printed){
+                    std::cout << "  ";
+                    for(int i = 0; i < getYSize(); i++){
+                        std::cout << i << " ";
+                    }
+                    y_text_printed = true;
+                    std::cout << std::endl;
+                }
+                if(!x_text_printed){
+                    std::cout << x << " ";
+                    x_text_printed = true;
+                }
+                std::cout << b[x][y].getChip() << " ";
+            }
+            std::cout << std::endl;
+        }
+    }
     bool board::placeSpace(space::t_coord x , space::t_coord y, char c){
         if(b[x][y].setChip(c)){
             moves += 1;

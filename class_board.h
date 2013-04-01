@@ -23,6 +23,7 @@ namespace board{
             space::t_coord getXSize();
             space::t_coord getYSize();
             void printBoard();
+            void printBoardWithHelptext();
             bool placeSpace(space::t_coord, space::t_coord, char);
             bool placeSpace(space::t_coord, space::t_coord, char, int);
             int spaceLeft();
