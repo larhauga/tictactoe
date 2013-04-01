@@ -4,6 +4,7 @@
 #include "class_player.h"
 #include <iostream>
 #include <sstream>
+#include <string>
 #include <vector>
 #include <stdio.h>
 #include <stdlib.h>
@@ -12,15 +13,19 @@
 
 namespace tictac{
     int tictactoe::start(){
-        std::cout << "Size of the game: "; 
         
         int size = 0;
-
-        std::string s = "";
-        std::cin >> s;
-        std::stringstream str(s);
-        std::stringstream(s) >> size;
-        
+        bool valid = false;
+        while(valid == false){
+            std::cout << "Size of the game: "; 
+            std::string s = "";
+            std::cin >> s;
+            std::stringstream str(s);
+            std::stringstream(s) >> size;
+            if(size != 0 && size >= 3){
+                valid = true;
+            }
+        }
         theBoard = new board::board(size);
 
 
@@ -35,17 +40,65 @@ namespace tictac{
         playersTurn = chooseStartPlayer();
         std::cout << players.at(playersTurn).getName() << " is starting" << std::endl;
 
-        while(playerWin() == 0){
-            theBoard->printBoard();
-
-        }
+        //while(playerWin() == 0){
+            theBoard->printBoardWithHelptext();
+            if(players.at(playersTurn).getName() == "Computer"){
+                computerPlay(playersTurn);
+            }else{
+                humanPlay(playersTurn);
+            }
+            theBoard->printBoardWithHelptext();            
+        //}
 
     }
     int tictactoe::chooseStartPlayer(){
         srand(time(NULL));
-        return rand() % players.size();
+        playersTurn = rand() % players.size();
+        return playersTurn;
     }
-    int tictactoe::playerWin(){
+    int tictactoe::findWinner(){
+        
+
+
         return 0;
+    }
+    void tictactoe::humanPlay(int id){
+        // Input of coordinates
+        int x = -1;
+        int y = -1;
+        bool valid = false;
+        std::stringstream ssx;
+        std::stringstream ssy;
+
+        std::cout << "Enter coordinates 3 - " << theBoard->getXSize() << std::endl;
+        while (!valid){
+            // X coordinat
+            std::cout << "X: ";
+            std::string sx = "";
+            std::cin >> sx;
+            ssx.str(sx);
+            ssx >> x;
+
+            // Y coordinat
+            std::cout << "Y: ";
+            std::string sy = "";
+            std::cin >> sy;
+            ssy.str(sy);
+            ssy >> y;
+            
+            if(x > -1 && x < theBoard->getXSize() && y > -1 && y < theBoard->getYSize()){
+                if(!theBoard->placeSpace(y,x,players.at(id).getSign(), id)){
+                    std::cout << "Already occupied" << std::endl;
+                }else{
+                    valid = true;
+                }
+            }else{
+                std::cout << "Not valid. Try again." << std::endl;
+            }
+        }
+    
+    }
+    void tictactoe::computerPlay(int id){
+    
     }
 }

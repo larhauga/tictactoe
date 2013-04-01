@@ -13,7 +13,10 @@ namespace tictac{
 
             void playRound();
             int chooseStartPlayer();
-            int playerWin();
+            int findWinner();
+
+            void humanPlay(int);
+            void computerPlay(int);
             
         public:
             board::board* theBoard;
