@@ -64,10 +64,12 @@ namespace tictac{
         int winner = findWinner();
         if(winner == -1 && theBoard->isFull()){
             // No winner, and the board is full
+            theBoard->printBoard();
             std::cout <<std::endl << "No moves left. Its a tie." << std::endl;
         }
         else if(winner > -1){
             // We got a winner!
+            theBoard->printBoard();
             std::cout << std::endl << players.at(winner).getName() << " won!" << std::endl;
         }
 
@@ -85,6 +87,15 @@ namespace tictac{
         }
 
         check = theBoard->checkHorizon();
+        if(check > -1){
+            return check;
+        }
+        check = theBoard->checkForwardDiag();
+        if(check > -1){
+            return check;
+        }
+
+        check = theBoard->checkBackwardDiag();
         if(check > -1){
             return check;
         }

@@ -128,10 +128,39 @@ namespace board{
         return -1;
     }
     int board::checkForwardDiag(){
-    
+        int userId = b[0][0].getUserId();
+        int count = 0;
+        
+        int y = 0;
+        for(int x = 0; x < getXSize(); x++){
+            if(b[x][y].getUserId() == userId){
+                count++;
+            }
+            y++;
+        }
+        if(count == size){
+            return userId;
+        }else{
+            return -1;
+        }
     }
     int board::checkBackwardDiag(){
-    
+        int userId = b[0][getXSize()-1].getUserId();
+        int count = 0;
+
+        int y = getYSize()-1;
+        for(int x = 0; x < getXSize(); x++){
+            if(b[x][y].getUserId() == userId){
+                count++;
+            }
+            y--;
+        }
+        if(count == size){
+            return userId;
+        }else{
+            return -1;
+        }
+        return -1;
     }
 
     bool board::isFull(){
