@@ -83,16 +83,70 @@ namespace board{
         }
     }
 
-    int board::spaceLeft(){
-        int possible = 0; 
+    int board::checkHorizon(){
+        int userId = -1;
+        int count = 0;
+
+        for(int x = 0; x < b.size(); x++){
+            if(b[x][0].getUserId() > -1 ){
+
+                userId = b[x][0].getUserId();
+                for(int y = 0; y < size; y++){
+                    if(userId == b[x][y].getUserId()){
+                        count += 1;
+
+                    }
+                    if(count == size){
+                        return userId;
+                    }
+                }
+            }
+            count = 0;
+        } 
+        return -1;
+    }
+    int board::checkVertical(){
+        int userId = -1;
+        int count = 0;
+
+        for(int y = 0; y < getYSize(); y++){
+            if(b[0][y].getUserId() > -1){
+                userId = b[0][y].getUserId();
+
+                for(int x = 0; x < getXSize(); x++){
+                    if(userId == b[x][y].getUserId()){
+                        count += 1;
+                    }
+                    if(count == size){
+                        return userId;
+                    }
+                }
+
+            }
+            count = 0;
+        }
+        return -1;
+    }
+    int board::checkForwardDiag(){
+    
+    }
+    int board::checkBackwardDiag(){
+    
+    }
+
+    bool board::isFull(){
+
         if(moves < size*size){
             for(int x = 0; x < getXSize(); x++){
                 for(int y = 0; y < getYSize(); y++){
-                    
+                    if(!b[x][y].isUsed()){
+                        return false;
+                    }
                 }
             }
+            return true;
         }else{
-            return 0;
+            return true;;
         }
     }
     

@@ -26,7 +26,14 @@ namespace board{
             void printBoardWithHelptext();
             bool placeSpace(space::t_coord, space::t_coord, char);
             bool placeSpace(space::t_coord, space::t_coord, char, int);
-            int spaceLeft();
+
+            // Winnerchecks
+            int checkHorizon();
+            int checkVertical();
+            int checkForwardDiag();
+            int checkBackwardDiag();
+
+            bool isFull();
     };
 }
 
