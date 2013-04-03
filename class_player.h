@@ -1,3 +1,4 @@
+/* s171201 - Lars Haugan */
 #ifndef CLASS_PLAYER
 #define CLASS_PLAYER
 
