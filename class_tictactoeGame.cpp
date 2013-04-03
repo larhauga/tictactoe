@@ -13,7 +13,7 @@
 
 namespace tictac{
     int tictactoe::start(){
-        
+        srand(time(NULL));       
         int size = 0;
         bool valid = false;
         while(valid == false){
@@ -40,6 +40,7 @@ namespace tictac{
                 std::cout << std::endl << "Play another round? (y/n): ";
                 std::cin >> *s;
             }
+            delete s;
         }catch(int e){
             return e;
         }
@@ -48,18 +49,23 @@ namespace tictac{
         return 0;
     }
     void tictactoe::playRound(){
+        bool firstround = true;
         playersTurn = chooseStartPlayer();
         std::cout << players.at(playersTurn).getName() <<" is starting" << std::endl;
 
         while(findWinner() == -1 && !theBoard->isFull()){
             std::cout << std::endl; 
+            std::cout << players.at(playersTurn).getName() << "'s turn: " << std::endl<<std::endl;
             theBoard->printBoardWithHelptext();
-
+            
             if(players.at(playersTurn).getName() == "Computer"){
-                computerPlay(playersTurn);
+                computerPlay(playersTurn, firstround);
+                playersTurn = 0;
             }else{
                 humanPlay(playersTurn);
+                playersTurn = 1;
             }
+            firstround = false;
         }
         int winner = findWinner();
         if(winner == -1 && theBoard->isFull()){
@@ -75,7 +81,7 @@ namespace tictac{
 
     }
     int tictactoe::chooseStartPlayer(){
-        srand(time(NULL));
+        //srand(time(NULL));
         playersTurn = rand() % players.size();
         return playersTurn;
     }
@@ -138,7 +144,18 @@ namespace tictac{
         }
     
     }
-    void tictactoe::computerPlay(int id){
-    
+    void tictactoe::computerPlay(int id, bool firstround){
+        // Logic for getting the computer to play.
+        int x = 0;
+        int y = 0;
+        std::vector<int,int> i = new std::vector<int,int>;
+
+        if(firstround){
+            // Do spesific for first round
+        }else{
+            // Check where the user have placed the pice
+        }
+
+
     }
 }

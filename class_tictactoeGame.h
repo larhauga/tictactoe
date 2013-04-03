@@ -16,7 +16,7 @@ namespace tictac{
             int findWinner();
 
             void humanPlay(int);
-            void computerPlay(int);
+            void computerPlay(int,bool);
             
         public:
             board::board* theBoard;
