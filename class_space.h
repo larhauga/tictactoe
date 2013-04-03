@@ -25,6 +25,7 @@ namespace space{
             bool setChip(t_chip, int);
             t_chip getChip();
             bool isUsed();
+            int getUserId();
     };
 }
 

@@ -6,6 +6,7 @@ namespace space{
         xCoord = x;
         yCoord = y;
         userChip = '#';
+        userId = 0;
     };
 
     t_coord space::getxCoord(){
@@ -40,5 +41,8 @@ namespace space{
         }else{
             return false;
         }
+    }
+    int space::getUserId(){
+        return userId;
     }
 };
