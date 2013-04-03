@@ -6,7 +6,7 @@ namespace space{
         xCoord = x;
         yCoord = y;
         userChip = '#';
-        userId = 0;
+        userId = -1;
     };
 
     t_coord space::getxCoord(){
@@ -24,7 +24,7 @@ namespace space{
         }
     }
     bool space::setChip(t_chip c, int id){
-        if(isUsed()){
+        if(!isUsed()){
             userChip = c;
             userId = id;
             return true;
@@ -36,7 +36,7 @@ namespace space{
         return userChip;
     }
     bool space::isUsed(){
-        if(userChip != 0 || userChip != '#'){
+        if(userChip != 0 && userChip != '#'){
             return true;
         }else{
             return false;
