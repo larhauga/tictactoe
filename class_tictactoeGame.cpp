@@ -13,7 +13,10 @@
 
 namespace tictac{
     int tictactoe::start(){
-        srand(time(NULL));       
+        srand(time(NULL)); 
+        compvscomp = false;
+        compShowBoard = true;
+
         int size = 0;
         bool valid = false;
         while(valid == false){
@@ -26,7 +29,26 @@ namespace tictac{
                 valid = true;
             }
         }
-
+        try{
+            std::cout << "Computer vs. Computer? (y/N) ";
+            std::string s = "";
+            std::cin >> s;
+            if(s == "y" || s == "Y"){
+                compvscomp = true;
+                
+                std::string show = "";
+                std::cout << "Show board for every action? (y/n): ";
+                std::cin >> show;
+                if(show =="y" || show == "Y"){
+                    compShowBoard = true;
+                }else{
+                    compShowBoard = false;
+                }
+                
+            }
+        }catch(int e){
+            
+        }
         try{
             std::string* s = new std::string("y");
 
@@ -57,13 +79,20 @@ namespace tictac{
 
         while(findWinner() == -1 && !theBoard->isFull()){
             if(players.at(playersTurn).getName() == "Computer"){
-                std::cout << "The computer made a move..." << std::endl;
+                if(compShowBoard){
+                    std::cout << "The computer made a move..." << std::endl;
+                }
                 computerPlay(playersTurn, firstround);
                 playersTurn = 0;
             }else if(playersTurn == 0){
-                theBoard->printBoardWithHelptext();
-                humanPlay(playersTurn);
-                //computerPlay(playersTurn, firstround);
+                if(compShowBoard){
+                    theBoard->printBoardWithHelptext();
+                }
+                if(compvscomp){
+                    computerPlay(playersTurn, firstround);
+                }else{
+                    humanPlay(playersTurn);
+                }
                 playersTurn = 1;
             }
             firstround = false;

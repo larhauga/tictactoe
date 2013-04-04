@@ -10,6 +10,8 @@ namespace tictac{
     class tictactoe{
         private:
             int playersTurn;                    // Userid of the playing user. 
+            bool compvscomp;                    // Posibility of computer vs. computer
+            bool compShowBoard;                 // Show the board while playing
 
             void playRound();                   // A single round / board of tictactoe
             int chooseStartPlayer();            // Chooses randomly which player is starting
