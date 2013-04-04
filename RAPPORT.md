@@ -43,6 +43,7 @@ Player er selve spilleren og er et objekt som inneholder id, brikketype og navn.
  - Burde vært implementert gameState eller liknende
  - AI kunne hatt en bedre stategi
  - Dårlig funksjonell struktur
+ - Lite effektive metoder for sjekk
 
 ## Ulogisk navngiving
 Under konstruksjonen av vektoren og klassen for brettet ble det navngitt motsatt av det som faktisk ble strukturert i vektoren.
@@ -64,3 +65,6 @@ Ettersom programmet har blitt større har det blitt problemer med plassering av 
 Strukturen burde inneholdt elementer som "state", "action" og ikke minst en "strategy".
 Slik det er nå er mye av den logiske strategien og funksjonelle metoder plassert på brettet, der de egentlig ikke har noe å gjøre.
 
+## Lite effektive metoder for sjekk
+Etter at programmet er ferdig implementert og det som i en tilleggsfunksjon ble implementert muligheten for å kjøre maskin-mot-maskin, har det vært mulig å kjøre en ytelsestest på større brett opp mot 250x250.
+Funksjoner som utreder hvor neste brikke skal settes er lite effektiv i forhold til dette, og dette programmet vil derfor ikke egne seg til å lage noen analyse av tic tac toe. Dette på grunnlag av nettopp hastighet, men også da dette er en spesiell strategi, som ikke vil fungere optimalt på større brett.
