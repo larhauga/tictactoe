@@ -150,18 +150,64 @@ namespace tictac{
         int x = 0;
         int y = 0;
         
-        x = rand() % theBoard->getXSize();
-        y = rand() % theBoard->getYSize();
-
-        while(!theBoard->placeSpace(y,x,players.at(id).getSign(), id)){
-            x = rand() % theBoard->getXSize();
-            y = rand() % theBoard->getYSize();
-        }
         if(firstround){
             // Do spesific for first round
+            int r = -1;
+            r = rand() % 5;
+            if(r == 0){
+                //Left corner
+                x = 0;
+                y = 0;
+            }else if(r == 1){
+                //Right corner
+                x = theBoard->getXSize()-1;
+                y = 0;
+            }else if(r == 2){
+                //Left bottom
+                x = 0;
+                y = theBoard->getYSize()-1;
+            }else if(r == 3){
+                //Right bottom
+                x = theBoard->getXSize()-1;
+                y = theBoard->getYSize()-1;
+            }else if(r == 4){
+                //Center
+                x = (theBoard->getXSize()/2);
+                y = (theBoard->getYSize()/2);
+
+                // Check for center. (4x4 have no center)
+                if(theBoard->getXSize() % 2 == 0){
+                    if(rand()%2 == 0){
+                        x--;
+                        y--;
+                    }   
+                }
+            }
+            // Places the sign at the space
+            theBoard->placeSpace(y,x,players.at(id).getSign(), id);
 
         }else{
-            // Check where the user have placed the pice
+            
+            // If the next move could block or win we take that move. If not. Go all about random!
+            // This strategy is not beatable without a fork, but with optimal playing from user, the computer is beatable.
+            space::space* possibleBlock = theBoard->findNextMove(0);
+            space::space* possibleMove  = theBoard->findNextMove(id);
+            if(possibleMove != NULL){ // If computer can win
+                possibleMove->setChip(players.at(id).getSign(), id);
+            }else if(possibleBlock != NULL){ // If computer cant win, but the user can. We block.
+                possibleBlock->setChip(players.at(id).getSign(), id);
+
+            }else{
+                // No apparant winning or loosing moves? We go random.
+                x = rand() % theBoard->getXSize();
+                y = rand() % theBoard->getYSize();
+
+                while(!theBoard->placeSpace(y,x,players.at(id).getSign(), id)){ 
+                    //While we go to random space that is not occupied
+                    x = rand() % theBoard->getXSize();
+                    y = rand() % theBoard->getYSize();
+                }
+            }
         }
 
 
