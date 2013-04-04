@@ -30,39 +30,40 @@ namespace tictac{
         try{
             std::string* s = new std::string("y");
 
-            while(*s == "Y" || *s == "y"){
-                theBoard = new board::board(size);
                 players.push_back(player::player(0, 'X', "Human"));
                 players.push_back(player::player(1, 'O', "Computer"));
+
+            while(*s == "Y" || *s == "y"){
+                theBoard = new board::board(size);
 
                 tictactoe::playRound();
 
                 std::cout << std::endl << "Play another round? (y/n): ";
                 std::cin >> *s;
+                delete theBoard;
             }
             delete s;
         }catch(int e){
             return e;
         }
 
-        delete theBoard;
         return 0;
     }
     void tictactoe::playRound(){
         bool firstround = true;
+        playersTurn = 0;
         playersTurn = chooseStartPlayer();
         std::cout << players.at(playersTurn).getName() <<" is starting" << std::endl;
 
         while(findWinner() == -1 && !theBoard->isFull()){
-            std::cout << std::endl; 
-            std::cout << players.at(playersTurn).getName() << "'s turn: " << std::endl<<std::endl;
-            theBoard->printBoardWithHelptext();
-            
             if(players.at(playersTurn).getName() == "Computer"){
+                std::cout << "The computer made a move..." << std::endl;
                 computerPlay(playersTurn, firstround);
                 playersTurn = 0;
-            }else{
+            }else if(playersTurn == 0){
+                theBoard->printBoardWithHelptext();
                 humanPlay(playersTurn);
+                //computerPlay(playersTurn, firstround);
                 playersTurn = 1;
             }
             firstround = false;
