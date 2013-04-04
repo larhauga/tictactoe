@@ -178,5 +178,124 @@ namespace board{
             return true;;
         }
     }
+
+    space::space* board::findNextMove(int thisUser){
+        space::space* hor = findEmptyWinHorizontal(thisUser);
+        if(hor != NULL){
+            return hor;
+        }
+        space::space* vert = findEmptyWinVertical(thisUser);
+        if(vert != NULL){
+            return vert;
+        }
+        space::space* fwdDiag = findEmptyWinForwardDiag(thisUser);
+        if(fwdDiag != NULL){
+            return fwdDiag;
+        }
+        space::space* bwdDiag = findEmptyWinBackwardDiag(thisUser);
+        if(bwdDiag != NULL){
+            return bwdDiag;
+        }
+        return NULL;
+        
+    }
+    space::space* board::findEmptyWinHorizontal(int id){
+        int count = 0;
+        int thisusercount = 0;
+        int totalcount = 0;
+
+        for(int x = 0; x < size; x++){
+            for(int y = 0; y < size; y++){
+                totalcount++;
+                if(b[x][y].getUserId() == -1){
+                    count++;
+                }
+                if(b[x][y].getUserId() == id){
+                    thisusercount++;
+                }
+            }
+            if(totalcount == (count + thisusercount)){ // No other users on this line
+                
+                if(count < 2){
+                    for(int i = 0; i < size; i++){
+                        if(b[x][i].getUserId() == -1){
+                            return &b[x][i];
+                        }
+                    }
+                }
+            }
+
+            count = 0;
+            thisusercount = 0;
+            totalcount = 0;
+        }
+        return NULL;
+    }
+    space::space* board::findEmptyWinVertical(int id){
+        int count = 0;
+        int thisusercount = 0;
+        int totalcount = 0;
+        
+        for(int y = 0; y < getYSize(); y++){
+            for(int x = 0; x < getXSize(); x++){
+                totalcount++;
+
+                if(b[x][y].getUserId() == -1){
+                    count++;
+                }
+                if(b[x][y].getUserId() == id){
+                    thisusercount++;
+                }
+            }
+
+            if(totalcount == (count + thisusercount)){
+
+                if(count < 2){
+                    for(int i = 0; i < size; i++){
+                        if(b[i][y].getUserId() == -1){
+                            return &b[i][y];
+                        }
+                    }
+                }
+            }
+            count = 0;
+            thisusercount = 0;
+            totalcount = 0;
+        }
+        return NULL;
+    }
+    space::space* board::findEmptyWinForwardDiag(int id){
+        int count = 0;
+        int thisusercount = 0;
+        int totalcount = 0;
+        
+        int y = 0;
+        for(int x = 0; x < getXSize(); x++){
+            totalcount++;
+            if(b[x][y].getUserId() == -1){
+                count++;
+            }
+            if(b[x][y].getUserId() == id){
+                thisusercount++;
+            }
+
+            y++;
+        }
+        y = 0;
+        if(totalcount == (count + thisusercount)){
+            if(count < 2){
+                for(int x = 0; x < getXSize(); x++){
+                    if(b[x][y].getUserId() == -1){
+                        return &b[x][y];
+                    }
+                    y++;
+                }
+            }
+        }
+        return NULL;
+    }
+    space::space* board::findEmptyWinBackwardDiag(int id){
+        return NULL;
+    }
     
 }
