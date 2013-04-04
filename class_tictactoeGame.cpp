@@ -70,12 +70,13 @@ namespace tictac{
         int winner = findWinner();
         if(winner == -1 && theBoard->isFull()){
             // No winner, and the board is full
-            theBoard->printBoard();
+            std::cout << std::endl;
+            theBoard->printBoardWithHelptext();
             std::cout <<std::endl << "No moves left. Its a tie." << std::endl;
         }
         else if(winner > -1){
             // We got a winner!
-            theBoard->printBoard();
+            theBoard->printBoardWithHelptext();
             std::cout << std::endl << players.at(winner).getName() << " won!" << std::endl;
         }
 
@@ -148,10 +149,17 @@ namespace tictac{
         // Logic for getting the computer to play.
         int x = 0;
         int y = 0;
-        std::vector<int,int> i = new std::vector<int,int>;
+        
+        x = rand() % theBoard->getXSize();
+        y = rand() % theBoard->getYSize();
 
+        while(!theBoard->placeSpace(y,x,players.at(id).getSign(), id)){
+            x = rand() % theBoard->getXSize();
+            y = rand() % theBoard->getYSize();
+        }
         if(firstround){
             // Do spesific for first round
+
         }else{
             // Check where the user have placed the pice
         }
